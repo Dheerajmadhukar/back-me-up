@@ -26,8 +26,8 @@ Output will be saved in "output" directory
 </h1>
 
 ##### Prerequisites
-- waybackurls [go get github.com/tomnomnom/waybackurls] [@tomnomnom](https://github.com/tomnomnom/waybackurls)
-- gauplus [go get -u -v github.com/bp0lr/gauplus] [@bp0lr](https://github.com/bp0lr/gauplus)
-- anew [go get -u github.com/tomnomnom/anew] [@tomnomnom](https://github.com/tomnomnom/anew)
+- waybackurls [$ sudo go get github.com/tomnomnom/waybackurls] [@tomnomnom](https://github.com/tomnomnom/waybackurls)
+- gauplus [$ sudo go get -u -v github.com/bp0lr/gauplus] [@bp0lr](https://github.com/bp0lr/gauplus)
+- anew [$ sudo go get -u github.com/tomnomnom/anew] [@tomnomnom](https://github.com/tomnomnom/anew)
 - httpx [@pdiscoveryio](https://github.com/projectdiscovery/httpx)
-- pv [apt install pv -y]
+- pv [$ sudo apt install pv -y]
