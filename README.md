@@ -19,6 +19,11 @@ root@me_dheeraj:$ bash bulkyy.sh
 Output will be saved in "output" directory
 ```
 
+<h1 align="left">
+  <img src="screenshot.png" alt="Dheerajmadhukar" width="700px"></a>
+  <br>
+</h1>
+
 ##### Prerequisites
 - waybackurls [go get github.com/tomnomnom/waybackurls] [@tomnomnom](https://github.com/tomnomnom/waybackurls)
 - gauplus [go get -u -v github.com/bp0lr/gauplus] [@bp0lr](https://github.com/bp0lr/gauplus)
