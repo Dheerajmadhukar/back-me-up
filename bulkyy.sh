@@ -61,7 +61,7 @@ echo -e "💀$green[$(grep -ai "\.psql$" leaks.txt | tee $out/psql.txt | wc -l)]
 echo -e "💀$green[$(grep -ai "\.sql\.gz$" leaks.txt | tee $out/sql.gz.txt | wc -l)]$red sql.gz $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.vb$" leaks.txt | tee $out/vb.txt | wc -l)]$red vb $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.webinfo$" leaks.txt | tee $out/webinfo.txt | wc -l)]$red webinfo $end Found.💀"$end
-echo -e "💀$green[$(grep -ai "\.jnlp$" leaks.txt | tee $out/jnlp.txt | wc -l)]$red jnlp $end Found.�""$end
+echo -e "💀$green[$(grep -ai "\.jnlp$" leaks.txt | tee $out/jnlp.txt | wc -l)]$red jnlp $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.cgi$" leaks.txt | tee $out/cgi.txt | wc -l)]$red cgi $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.temp$" leaks.txt | tee  $out/temp.txt | wc -l)]$red temp $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.ini$" leaks.txt | tee $out/ini.txt | wc -l)]$red ini $end Found.💀"$end
