@@ -45,7 +45,7 @@ echo -e "💀$green[$(grep -ai "\.mysql-connect$" leaks.txt | tee $out/mysql-con
 echo -e "💀$green[$(grep -ai "\.jar$" leaks.txt | tee $out/jar.txt | wc -l)]$red jar $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.cfg$" leaks.txt | tee $out/cfg.txt | wc -l)]$red cfg $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.dir$" leaks.txt | tee $out/dir.txt | wc -l)]$red dir $end Found.💀"$end
-echo -e "💀$green[$(grep -ai "\.orig$" leaks.txt | tee $out/orig.txt | wc -l)]$red orig $end Found.�""$end
+echo -e "💀$green[$(grep -ai "\.orig$" leaks.txt | tee $out/orig.txt | wc -l)]$red orig $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.bz2$" leaks.txt | tee $out/bz2.txt | wc -l)]$red bz2 $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.old$" leaks.txt | tee $out/old.txt | wc -l)]$red old $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.vbs$" leaks.txt | tee $out/vbs.txt | wc -l)]$red vbs $end Found.💀"$end
@@ -57,7 +57,7 @@ echo -e "💀$green[$(grep -ai "\.vbproj$" leaks.txt | tee $out/vbproj.txt | wc 
 echo -e "💀$green[$(grep -ai "\.mysql-pconnect$" leaks.txt | tee $out/mysql-pconnect | wc -l)]$red mysql-pconnect $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.war$" leaks.txt | tee $out/war.txt | wc -l)]$red war $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.go$" leaks.txt| tee $out/go.txt | wc -l)]$red go $end Found.💀"$end
-echo -e "💀$green[$(grep -ai "\.psql$" leaks.txt | tee $out/psql.txt | wc -l)]$red psql $end Found.�""$end
+echo -e "💀$green[$(grep -ai "\.psql$" leaks.txt | tee $out/psql.txt | wc -l)]$red psql $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.sql\.gz$" leaks.txt | tee $out/sql.gz.txt | wc -l)]$red sql.gz $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.vb$" leaks.txt | tee $out/vb.txt | wc -l)]$red vb $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.webinfo$" leaks.txt | tee $out/webinfo.txt | wc -l)]$red webinfo $end Found.💀"$end
@@ -66,7 +66,7 @@ echo -e "💀$green[$(grep -ai "\.cgi$" leaks.txt | tee $out/cgi.txt | wc -l)]$r
 echo -e "💀$green[$(grep -ai "\.temp$" leaks.txt | tee  $out/temp.txt | wc -l)]$red temp $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.ini$" leaks.txt | tee $out/ini.txt | wc -l)]$red ini $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.webproj$" leaks.txt | tee $out/webproj.txt | wc -l)]$red webproj $end Found.💀"$end
-echo -e "💀$green[$(grep -ai "\.xsql$" leaks.txt | tee $out/xsql.txt | wc -l)]$red xsql $end Found.�""$end
+echo -e "💀$green[$(grep -ai "\.xsql$" leaks.txt | tee $out/xsql.txt | wc -l)]$red xsql $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.raw$" leaks.txt | tee $out/raw.txt | wc -l)]$red raw $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.inc$" leaks.txt | tee $out/inc.txt | wc -l)]$red inc $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.lck$" leaks.txt | tee $out/lck.txt | wc -l)]$red lck $end Found.💀"$end
