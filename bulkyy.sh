@@ -82,7 +82,7 @@ echo -e "💀$green[$(grep -ai "\.java$" leaks.txt | tee $out/java.txt| wc -l)]$
 echo -e "💀$green[$(grep -ai "\.key$" leaks.txt | tee $out/key.txt| wc -l)]$red key $end Found.💀"$end
 echo -e "💀$green[$(grep -ai "\.passwd$" leaks.txt | tee $out/passwd.txt| wc -l)]$red passwd $end Found💀"$end
 echo -e "💀$green[$(grep -ai "\.pl$" leaks.txt | tee $out/pl.txt| wc -l)]$red pl $end Found.💀"$end
-echo -e "💀$green[$(grep -ai "\pwd$" leaks.txt | tee $out/pwd.txt| wc -l)]$red pwd $end Found.💀"$end
+echo -e "💀$green[$(grep -ai "\.pwd$" leaks.txt | tee $out/pwd.txt| wc -l)]$red pwd $end Found.💀"$end
 rm leaks.txt
 find $out/ -type f -empty -delete
 }
