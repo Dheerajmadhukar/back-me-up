@@ -15,6 +15,7 @@ collect() {
 printf "Total targets: $(wc -l $target | awk '{print $1}')\n"
 cat $target | xargs -P 800 -I X bash -c "echo 'X' | waybackurls | tee -a waybackurls.txt > /dev/null"
 cat $target | gauplus --random-agent --subs -t 5000 | anew -q waybackurls.txt
+cat $target | gau --subs | anew -q waybackurls.txt
 cat waybackurls.txt | cut -d"?" -f1 | cut -d"=" -f1 > filtered.txt
 mv waybackurls.txt .waybackurls.txt
 #printf "Wayback Data: $(wc -l .waybackurls.txt | awk '{print $1}')\n"
