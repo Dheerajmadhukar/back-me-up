@@ -196,17 +196,16 @@ function collect() {
                cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) &>/dev/null;fi;echo {} | waybackurls | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_waybackdata.txt" &> /dev/null
 #/------------------------------------------------------/
        elif [[ ! -z "${target}" ]];then
-               echo "Target var: ${target}"
 # ╭─────────────────────╮
 # |         GAU         |
 # ╰─────────────────────╯
                if [ ! -d ${BASE_DIR}/output/${target}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/${target}_$(date -I) &> /dev/null;fi
-               echo ${target} | gau --providers wayback,commoncrawl,otx,urlscan --retries 2 --subs --threads 100 --timeout 10 2> /dev/null | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gau.txt 2>&1 > /dev/null
+               echo "${target}" | gau --providers wayback,commoncrawl,otx,urlscan --retries 2 --subs --threads 100 --timeout 10 2> /dev/null | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gau.txt 2>&1 > /dev/null
 
 # ╭─────────────────────╮
 # |         GAUPLUS     |
 # ╰─────────────────────╯
-               echo ${target} | gauplus -random-agent -subs -retries 2 -t 100 -providers wayback,otx,commoncrawl | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gauplus.txt 2>&1 > /dev/null
+               echo "${target}" | gauplus -random-agent -subs -retries 2 -t 100 -providers wayback,otx,commoncrawl | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gauplus.txt 2>&1 > /dev/null
 
 # ╭─────────────────────╮
 # |     KATANA PASSIVE  |
