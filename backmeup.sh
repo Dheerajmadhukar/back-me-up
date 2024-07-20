@@ -161,7 +161,6 @@ echo '([^.]+)\.REGEX\?(.*)=(.*)$'
 }
 
 function collect() {
-       echo "${target}"
        if [[ -f "${target}" ]];then
                mkdir -p ${BASE_DIR}/output/ &> /dev/null
 # ╭─────────────────────╮
