@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="assets/logo.png" alt="logo" width="250" height="auto" />
 <h1>BACK-ME-UP</h1>
   
   <p>
@@ -26,25 +27,39 @@ Back-Me-Up is a powerful shell script tool designed to automate the bug bounty p
 
 ### Requirements
 
-* **gau**: Install gau using `go get -u github.com/lc/gau`
-* **gauplus**: Install gauplus using `go get -u github.com/bp0lr/gauplus`
-* **katana**: Install katana using `pip install katana`
-* **waybackurls**: Install waybackurls using `go get -u github.com/tomnomnom/waybackurls`
+* **go**
+* **gau**
+* **gauplus**
+* **katana**
+* **waybackurls**
+* **hakrawler**
 
 ### Installation
 
-1. Download the script: `wget https://github.com/YourGitHubHandle/back-me-up/archive/main.zip`
-2. Extract the script: `unzip main.zip`
-3. Make the script executable: `chmod +x backmeup.sh`
+1. Clone the repo: `git clone https://github.com/Dheerajmadhukar/back-me-up.git`
+2. Change dir & run the script: `cd back-me-up/`
+3. To check installed prerequisite packages/tools/libs :
+```
+bash backmeup.sh --check/-c
+```
+<img src="assets/backmeup-2.png" alt="logo" width="auto" height="auto" />
 
-## Usage
+4. To install all the prerequisite packages/tools/libs :
+```
+bash backmeup.sh --install/-i
+```
+<img src="assets/backmeup-3.png" alt="logo" width="auto" height="auto" />
+
+### Usage
 
 To use Back-Me-Up, run the following command:
 
+```
+bash backmeup.sh --help/-h
+```
+<img src="assets/backmeup-1.png" alt="logo" width="auto" height="auto" />
 
-This will display the help menu with available options and examples.
-
-## How it Works
+### How it Works
 
 Back-Me-Up works by combining the power of multiple tools to automate the bug bounty process. Here's a high-level overview of the process:
 
