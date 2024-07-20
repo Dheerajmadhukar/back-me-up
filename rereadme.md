@@ -95,7 +95,7 @@ Back-Me-Up is designed for responsible use in legitimate penetration testing and
 
 ## Author
 
-**╔════════[ me_dheeraj ]══════════════════════════════════════════╗**
+**╔════════[ me_dheeraj ]════════════╗**
 
 * Twitter: [@Dheerajmadhukar](https://twitter.com/Dheerajmadhukar)
 * YouTube: [@Dheerajmadhukar](https://www.youtube.com/c/DheerajMadhukar)
