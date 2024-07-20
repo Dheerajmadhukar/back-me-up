@@ -11,9 +11,9 @@
 <h4>
     <a href="https://github.com/***/***/">View Demo</a>
     <span> · </span>
-    <a href="https://github.com/***/***/issues/">Report Bug</a>
+    <a href="https://github.com/Dheerajmadhukar/back-me-up/issues/">Report Bug</a>
   <span> · </span>
-    <a href="https://github.com/***/***/issues/">Request Feature</a>
+    <a href="https://github.com/Dheerajmadhukar/back-me-up/issues/">Request Feature</a>
   </h4>
 </div>
 
