@@ -21,7 +21,7 @@
 
 ## Tool Description
 
-Back-Me-Up is a powerful shell script tool designed to automate the bug bounty process by collecting URLs from internet archive data and searching for sensitive data leakage in the form of juicy extensions. The tool utilizes multiple tools, including `gau`, `gauplus`, `katana`, `hakrawler` and `waybackurls` to streamline the process.
+Back-Me-Up is a powerful shell script tool designed to automate the bug bounty process by collecting URLs from internet archive data and searching for sensitive data leakage in the form of juicy extensions. The tool utilizes multiple tools, including `gau`, `gauplus`, `katana`, and `waybackurls` to streamline the process.
 
 ## Prerequisites and Installation
 
@@ -32,7 +32,7 @@ Back-Me-Up is a powerful shell script tool designed to automate the bug bounty p
 * **gauplus**
 * **katana**
 * **waybackurls**
-* **hakrawler**
+
 
 ### Installation
 
@@ -66,7 +66,7 @@ Back-Me-Up works by combining the power of multiple tools to automate the bug bo
 
 ### Step 1: URL Collection
 
-* The tool uses `gau`, `gauplus`, `waybackurls`, `katana` and `hakrawler`, to gather URLs from internet archive data.
+* The tool uses `gau`, `gauplus`, `waybackurls`, and `katana` to gather URLs from internet archive data.
 
 ### Step 2: Extension Filtering
 
