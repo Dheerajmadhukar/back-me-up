@@ -227,7 +227,7 @@ function collect() {
 # ╭─────────────────────╮
 # |     WAYBACKURLS     |
 # ╰─────────────────────╯
-               echo "${target}" | waybackurls | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_waybackdata.txt 2&>1 > /dev/null
+               echo "${target}" | waybackurls | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_waybackdata.txt 2>&1 > /dev/null
        fi
 }
 
