@@ -101,7 +101,6 @@ Back-Me-Up is designed for responsible use in legitimate penetration testing and
 * Twitter: [@Dheerajmadhukar](https://twitter.com/Dheerajmadhukar)
 * YouTube: [@Dheerajmadhukar](https://www.youtube.com/c/DheerajMadhukar)
 * LinkedIn: [@dheerajtechnolegends](https://linkedin.com/in/dheerajtechnolegends)
-* Email: [youremail@example.com](mailto:youremail@example.com)
   
 **╚═════════════════════════════╝**
 
