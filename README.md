@@ -9,7 +9,7 @@
   
 <!-- Badges -->
 <h4>
-    <a href="https://github.com/***/***/">View Demo</a>
+    <a href="https://youtu.be/1wv0DNSzFcM">View Demo</a>
     <span> · </span>
     <a href="https://github.com/Dheerajmadhukar/back-me-up/issues/">Report Bug</a>
   <span> · </span>
@@ -88,7 +88,7 @@ Back-Me-Up works by combining the power of multiple tools to automate the bug bo
 
 ## Demo Video
 
-Watch the demo video on [YouTube](https://www.youtube.com/watch?v=VideoID).
+Watch the demo video on [YouTube](https://youtu.be/1wv0DNSzFcM).
 
 ## Disclaimer
 
