@@ -178,7 +178,7 @@ function collect() {
 # ╭─────────────────────╮
 # |     KATANA PASSIVE  |
 # ╰─────────────────────╯
-                cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) 2> /dev/null;fi;echo {} | katana -passive -jc -jsl -kf all -c 50 -silent | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_katana_passive.txt" 2>&1 > /dev/null
+                cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) 2> /dev/null;fi;echo {} | katana -passive -jc -jsl -fx -xhr -kf all -c 50 -silent | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_katana_passive.txt" 2>&1 > /dev/null
 
 ###### katana_depth-first ACTIVE
 # ╭─────────────────────╮
@@ -212,7 +212,7 @@ function collect() {
 # ╭─────────────────────╮
 # |     KATANA PASSIVE  |
 # ╰─────────────────────╯
-                echo "${target}" | katana -passive -jc -jsl -kf all -c 50 -silent | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_katana_passive.txt 2>&1 > /dev/null
+                echo "${target}" | katana -passive -jc -jsl -fx -xhr -kf all -c 50 -silent | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_katana_passive.txt 2>&1 > /dev/null
 
 ###### katana_depth-first ACTIVE
 # ╭─────────────────────╮
