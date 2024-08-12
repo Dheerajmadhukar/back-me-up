@@ -24,16 +24,25 @@
 
 Back-Me-Up is a powerful shell script tool designed to automate the bug bounty process by collecting URLs from internet archive data and searching for sensitive data leakage in the form of juicy extensions. The tool utilizes multiple tools, including `gau`, `gauplus`, `katana`, and `waybackurls` to streamline the process.
 
-## Prerequisites and Installation
+## Prerequisites and Installation [Don't worry, back-me-up take care of this!!!]
 
 ### Requirements
 
-* **go**
-* **gau**
-* **gauplus**
-* **katana**
-* **waybackurls**
-
+ **[+] go**<br>
+ **[+] cariddi**<br>
+ **[+] waybackurls**<br>
+ **[+] git**<br>
+ **[+] waymore**<br>
+ **[+] gau**<br>
+ **[+] pip3**<br>
+ **[+] gauplus**<br>
+ **[+] katana**<br>
+ **[+] gospider**<br>
+ **[+] crawley**<br>
+ **[+] httpx**<br>
+ **[+] anew**<br>
+ **[+] curl**<br>
+ **[+] hakrawler**<br>
 
 ### Installation
 
