@@ -90,7 +90,7 @@ for i in "${!tools[@]}";do
             elif [[ ${i} == "pip3" ]];then
                 printf " ${green}[+] pip3 ${end}\t:\t${logo}`pip3 --version|awk '{print $2 "(python"$NF}'`${end}\n"
             elif [[ ${i} == "waymore" ]];then
-                printf " ${green}[+] waymore ${end}\t:\t${logo}`curl -kLs "https://raw.githubusercontent.com/xnl-h4ck3r/waymore/main/waymore/__init__.py" | awk -F'\"' '{print $2}'`${end}\n"
+                printf " ${green}[+] waymore ${end}\t:\t${logo}`curl -kLs "https://raw.githubusercontent.com/xnl-h4ck3r/waymore/main/waymore/__init__.py" | awk -F'"' '{print $2}'`${end}\n"
             elif [[ ${i} == "hakrawler" ]];then
                 printf " ${green}[+] hakrawler ${end}\t:\t${logo}2.1${end}\n"
             elif [[ ${i} == "cariddi" ]];then
