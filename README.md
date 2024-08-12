@@ -109,7 +109,7 @@ $ echo "db" >> ext.txt
 
 ## Demo Video
 
-Watch the demo video on [YouTube](https://youtu.be/1wv0DNSzFcM).
+Watch the demo video on<br> [![Video](https://i.ytimg.com/vi/HenECEU9c34/maxresdefault.jpg)](https://www.youtube.com/watch?v=HenECEU9c34)
 
 ## Disclaimer
 
