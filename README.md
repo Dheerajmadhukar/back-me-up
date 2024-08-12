@@ -94,8 +94,7 @@ Back-Me-Up works by combining the power of multiple tools to automate the bug bo
 * Provides a user-friendly command-line interface
 * Regular expression and pattern-based data analysis
 
-## Supports 162 uniq extensions are available
-
+## Supports 162 uniq extensions
 ```
 $ cat ext.txt 
 ```
