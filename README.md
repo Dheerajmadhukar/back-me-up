@@ -76,7 +76,7 @@ Back-Me-Up works by combining the power of multiple tools to automate the bug bo
 
 ### Step 1: URL Collection
 
-* The tool uses `gau`, `gauplus`, `waybackurls`, and `katana` to gather URLs from internet archive data.
+* The tool uses `gau`, `gauplus`, `waybackurls`, `cariddi`, `waymore`, `gospider`, `crawley`, `hakrawler` and `katana` to gather URLs from internet archive data.
 
 ### Step 2: Extension Filtering
 
@@ -94,6 +94,12 @@ Back-Me-Up works by combining the power of multiple tools to automate the bug bo
 * Provides a user-friendly command-line interface
 * Regular expression and pattern-based data analysis
 
+## Custom extensions [Extension Filtering e.g .sql, .bkp, .txt etc...]
+```
+$ cat ext.txt 
+```
+# Supports 162 uniq extensions are available
+dat,rtf,xls,ppt,sdf,odf,pptx,xlsx,exe,lnk,7z,bin,part,pdb,cgi,crdownload,ini,zipx,bak,torrent,jar,sys,deb,sh,docm,mdb,xla,zip,tar.gz,txt,json,csv,doc,docx,git,pem,bash_history,db,key,tar,log,sql,accdb,dbf,apk,cer,cfg,rar,sln,tmp,dll,iso,c,cpp,tgz,sqlite,pgsql.txt,mysql.txt,gz,config,backup,bkp,crt,eml,java,lst,passwd,pl,pwd,mysql-connect,dir,orig,bz2,old,vbs,img,inf,py,vbproj,mysql-pconnect,war,go,psql,sql.gz,vb,webinfo,jnlp,temp,webproj,xsql,raw,inc,lck,nz,rc,html.gz,env,yml,save,save.1,ovpn,secret,secrets,access,gitignore,properties,dtd,conf,configs,xml,rb,yaml,toml,tar.bz2,dochtml,odt,pdf,action,adr,ascx,asmx,axd,bkf,bok,achee,cfm,cnf,csr,ica,mai,mbox,mbx,md,nsf,ora,pac,pcf,pgp,plist,rdp,reg,skr,swf,tpl,url,wml,xsd,swp,bac,BAK,NEW,_bak,_old,bak1,lock,atom,_backup,~,%01,(1),gzip,cab
 
 ## Demo Video
 
