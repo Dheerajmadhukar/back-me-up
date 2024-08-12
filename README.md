@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" alt="logo" width="250" height="auto" />
+  <!-- <img src="assets/logo.png" alt="logo" width="250" height="auto" /> -->
 <h1>BACK-ME-UP</h1>
   
   <p>
