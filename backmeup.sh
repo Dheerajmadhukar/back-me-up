@@ -14,6 +14,7 @@ upper="${lightblue}╔$(printf '%.0s═' $(seq "80"))╗${end}"
 lower="${lightblue}╚$(printf '%.0s═' $(seq "80"))╝${end}"
 right=$(printf '\u2714')
 cross=$(printf '\u2718')
+spin=("😊" "😃" "😄" "😆" "😎" "😍" "😘" "😗" "😙" "😚" "😛" "😝" "😞" "😟" "😠" "😡" "😢" "😣" "😤" "😥" "😦")
 end='\e[0m'
 description="A tool to automate a bugbounty process as: Tool will execute multiple tools to collect URLs from internet archives then use some useful patterns/RegEx to look for Sensitive Data Leakage in the form of multiple juicy extensions."
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
@@ -23,7 +24,7 @@ function help(){
       printf "\nUsage:\n">&2
       printf "\t-c/--check\t\t:\t\tTo check installed prerequisite packages/tools/libs\n">&2
       printf "\t-i/--install\t\t:\t\tTo install all the prerequisite packages/tools/libs\n">&2
-      printf "\t-t/--target\t\t:\t\tInput from list of domains OR a target domain.tld  \n">&2
+      printf "\t-d/--domain\t\t:\t\tA target domain.tld  \n">&2
       printf "\t-h/--help\t\t:\t\tHelp\n">&2
       printf '\n\n' >&2
       printf "╔════════[ ${lightred}me_dheeraj [Author]${end} ]═════════════════════════════════════════════════════════════╗\n\n" >&2
@@ -40,13 +41,19 @@ function help(){
 # NOTE: On a normal Linux system check `ulimit -a`. To raise the jobs limit raise to `ulimit -u 10000`.
 #####
 declare -A tools='(
+["curl"]="apt install curl -y -qq"
+["git"]="apt install git -y -qq"
+["pip3"]="apt install python3-pip -y -qq"
 ["hakrawler"]="go install github.com/hakluke/hakrawler@latest"
+["cariddi"]="go install github.com/edoardottt/cariddi/cmd/cariddi@latest"
+["gospider"]="go install github.com/jaeles-project/gospider@latest"
+["crawley"]="go install -v github.com/s0rg/crawley/cmd/crawley@latest"
+["waymore"]="pip3 install git+https://github.com/xnl-h4ck3r/waymore.git -v"
 ["katana"]="go install github.com/projectdiscovery/katana/cmd/katana@latest"
 ["waybackurls"]="go install github.com/tomnomnom/waybackurls@latest"
 ["gauplus"]="go install github.com/bp0lr/gauplus@latest"
 ["gau"]="go install github.com/lc/gau/v2/cmd/gau@latest"
 ["httpx"]="go install github.com/projectdiscovery/httpx/cmd/httpx@latest"
-["parallel"]="apt install parallel -y -qq"
 ["anew"]="go install github.com/tomnomnom/anew@master"
 )'
 
@@ -66,22 +73,37 @@ for i in "${!tools[@]}";do
                 printf " ${green}[+] ${i}${end}:\t${logo}v0.1.0\n${end}"
             elif [[ ${i} == "gauplus" ]];then
                 printf " ${green}[+] ${i} ${end}\t:\t${logo}`gauplus -version | awk '{print $NF}'`${end}\n"
+            elif [[ ${i} == "gospider" ]];then
+                printf " ${green}[+] ${i} ${end}\t:\t${logo}`gospider --version|head -1|awk '{print $NF}'`${end}\n"
             elif [[ ${i} == "gau" ]];then
                 printf " ${green}[+] ${i} ${end}\t:\t${logo}`gau --version|awk '{print $NF}'`${end}\n"
-            elif [[ ${i} == "parallel" ]];then
-                printf " ${green}[+] ${i} ${end}\t:\t${logo}`parallel -V|head -1`${end}\n"
             elif [[ ${i} == "anew" ]];then
                 printf " ${green}[+] ${i} ${end}\t:\t${logo}v0.1.1${end}\n"
             elif [[ ${i} == "httpx" ]];then
                 printf " ${green}[+] ${i} ${end}\t:\t${logo}`httpx -version 2>&1|grep "Current Version"| awk '{print $NF}'`${end}\n"
             elif [[ ${i} == "katana" ]];then
                 printf " ${green}[+] ${i} ${end}\t:\t${logo}`katana --version 2>&1| tail -1 | awk '{print $NF}'`${end}\n"
+            elif [[ ${i} == "curl" ]];then
+                printf " ${green}[+] curl ${end}\t:\t${logo}`curl --version|head -1|awk '{print $2}'`${end}\n"
+            elif [[ ${i} == "git" ]];then
+                printf " ${green}[+] git ${end}\t:\t${logo}`git --version|awk '{print $NF}'`${end}\n"
+            elif [[ ${i} == "pip3" ]];then
+                printf " ${green}[+] pip3 ${end}\t:\t${logo}`pip3 --version|awk '{print $2 "(python"$NF}'`${end}\n"
+            elif [[ ${i} == "waymore" ]];then
+                printf " ${green}[+] waymore ${end}\t:\t${logo}`curl -kLs "https://raw.githubusercontent.com/xnl-h4ck3r/waymore/main/waymore/__init__.py" | awk -F'\"' '{print $2}'`${end}\n"
+            elif [[ ${i} == "hakrawler" ]];then
+                printf " ${green}[+] hakrawler ${end}\t:\t${logo}2.1${end}\n"
+            elif [[ ${i} == "cariddi" ]];then
+                printf " ${green}[+] cariddi ${end}\t:\t${logo}`cariddi -version 2>&1| egrep -o "v[0-9.]+"`${end}\n"
+            elif [[ ${i} == "crawley" ]];then
+                printf " ${green}[+] crawley ${end}\t:\t${logo}1.7.7${end}\n"
             fi
         fi
 
 done
 }
 function install(){
+    echo -e "\033[1;37m[\033[1;31m+\033[1;37m]\033[1;32m Please be aware that this installation is only compatible with\033[0m Linux (amd64)\033[0m\n"
     if ! go version &> /dev/null;then
                                 OS="$(uname -s)"
                                 ARCH="$(uname -m)"
@@ -154,82 +176,103 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin\n
     done
 }
 function regex_template(){
-echo '([^.]+)\.REGEX$'
-echo '([^.]+)\.REGEX\.[0-9]+$'
-echo '([^.]+)\.REGEX[0-9]+$'
-echo '([^.]+)\.REGEX[a-z][A-Z][0-9]+$'
-echo '([^.]+)\.REGEX\.[a-z][A-Z][0-9]+$'
-echo '([^.]+)\.REGEX\?(.*)=(.*)$'
+    echo '([^.]+)\.REGEX$'
+    echo '([^.]+)\.REGEX\.[0-9]+$'
+    echo '([^.]+)\.REGEX[0-9]+$'
+    echo '([^.]+)\.REGEX[a-z][A-Z][0-9]+$'
+    echo '([^.]+)\.REGEX\.[a-z][A-Z][0-9]+$'
+    echo '([^.]+)\.REGEX\?(.*)=(.*)$'
 }
-
+emoticons(){
+    PID=$!;i=0;name=${1}
+    while [ -d /proc/${PID} ];do
+        printf " \r└──${green}[${name}]${end} : ${spin[i++%${#spin[@]}]:0:1}"
+        sleep 0.05
+    done
+    printf " \r└──${green}[${name}]${end} : `wc -l ${BASE_DIR}/output/${target}_$(date -I)/${target}_${name}.txt|awk '{print $1}'`\n"
+}
 function collect() {
-       if [[ -f "${target}" ]];then
-               mkdir -p ${BASE_DIR}/output/ &> /dev/null
+       if [[ ! -z "${target}" ]];then
+
+            printf "\n${target} ${yellow}BACK-ME-UP ${end}[${logo}Author: Dheeraj Madhukar${end}]\n"
+            if [ ! -d ${BASE_DIR}/output/${target}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/${target}_$(date -I) &> /dev/null;fi
+# ╭─────────────────────╮
+# |         GOSPIDER    |
+# ╰─────────────────────╯
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+                gospider -s "https://${target}" --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" --quiet --depth 5 --concurrent 80 --threads 100 --delay 1 --random-delay 1 --timeout 10 --js --robots --other-source --include-subs --include-other-source --subs --sitemap --no-redirect --raw 2> /dev/null | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gospider.txt &> /dev/null &
+                emoticons "gospider"
+# ╭─────────────────────╮
+# |         CRAWLEY     |
+# ╰─────────────────────╯
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+                crawley -all -user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" -subdomains -headless -depth -1 -silent -skip-ssl -workers 50 -timeout 10s -robots crawl https://${target} 2> /dev/null | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_crawley.txt &> /dev/null &
+                emoticons "crawley"
+# ╭─────────────────────╮
+# |         CARIDDI     |
+# ╰─────────────────────╯
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+                echo https://${target} | cariddi -s -d 2 -c 200 -e -ext 7 -cache -t 10 -intensive -rua -err -info 2> /dev/null | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_cariddi.txt &> /dev/null &
+                emoticons "cariddi"
 # ╭─────────────────────╮
 # |         GAU         |
 # ╰─────────────────────╯
-               cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) &> /dev/null;fi;gau --providers wayback,commoncrawl,otx,urlscan --retries 2 --subs --threads 50 --timeout 10 {} | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_gau.txt" &> /dev/null
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+               echo ${target} | gau --providers wayback,commoncrawl,otx,urlscan --retries 2 --subs --threads 100 --timeout 10 2> /dev/null | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gau.txt 2>&1 > /dev/null &
+                emoticons "gau"
 
 # ╭─────────────────────╮
 # |         GAUPLUS     |
 # ╰─────────────────────╯
-             cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) &> /dev/null;fi;echo {} | gauplus -random-agent -subs -retries 2 -t 50 -providers wayback,otx,commoncrawl | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_gauplus.txt" &> /dev/null
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+               echo ${target} | gauplus -random-agent -subs -retries 2 -t 100 -providers wayback,otx,commoncrawl | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gauplus.txt 2>&1 > /dev/null &
+                emoticons "gauplus"
+
+# ╭─────────────────────╮
+# |     hakrawler       |
+# ╰─────────────────────╯
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+                echo "https://www.${target}" | hakrawler -d 5 -dr -insecure -t 10 -timeout 3600 -subs | tee ${BASE_DIR}/output/${target}_$(date -I)/${target}_hakrawler.txt 2>&1 > /dev/null &
+                emoticons "hakrawler"
+
 
 # ╭─────────────────────╮
 # |     KATANA PASSIVE  |
 # ╰─────────────────────╯
-                cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) 2> /dev/null;fi;echo {} | katana -passive -jc -jsl -fx -xhr -kf all -c 50 -silent | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_katana_passive.txt" 2>&1 > /dev/null
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+                echo "${target}" | katana -passive -jc -jsl -fx -xhr -kf all -c 50 -silent | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_katana_passive.txt 2>&1 > /dev/null &
+                emoticons "katana_passive"
 
 ###### katana_depth-first ACTIVE
 # ╭─────────────────────╮
 # | KATANA ACTIVE df    |
 # ╰─────────────────────╯
-               cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) &> /dev/null;fi;echo {} | katana -d 5 -jc -ct 1h -fx -s depth-first -c 50 -silent | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_katana_df.txt" 2>&1 > /dev/null
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+               echo "${target}" | katana -d 5 -jc -ct 1h -aff -fx -s depth-first -c 50 -silent | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_katana_df.txt 2>&1 > /dev/null &
+                emoticons "katana_df"
 
 ###### katana_breadth-first ACTIVE
 # ╭─────────────────────╮
 # | KATANA ACTIVE BF    |
 # ╰─────────────────────╯
-               cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) &> /dev/null;fi;echo {} | katana -d 5 -jc -ct 1h -aff -fx -s breadth-first -c 50 -silent | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_katana_bf.txt" 2>&1 > /dev/null
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+              echo "${target}" | katana -d 5 -jc -ct 1h -aff -fx -s breadth-first -c 50 -silent | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_katana_bf.txt 2>&1 > /dev/null &
+                emoticons "katana_bf"
 
 # ╭─────────────────────╮
 # |     WAYBACKURLS     |
 # ╰─────────────────────╯
-               cat "${target}" | parallel --load 100% --timeout 100% --retries 1 -j+0 -k --lb --compress --silent "if [ ! -d ${BASE_DIR}/output/{}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/{}_$(date -I) &>/dev/null;fi;echo {} | waybackurls | anew -q ${BASE_DIR}/output/{}_$(date -I)/{}_waybackdata.txt" &> /dev/null
-#/------------------------------------------------------/
-       elif [[ ! -z "${target}" ]];then
-# ╭─────────────────────╮
-# |         GAU         |
-# ╰─────────────────────╯
-               if [ ! -d ${BASE_DIR}/output/${target}_$(date -I) ];then mkdir -p ${BASE_DIR}/output/${target}_$(date -I) &> /dev/null;fi
-               echo ${target} | gau --providers wayback,commoncrawl,otx,urlscan --retries 2 --subs --threads 100 --timeout 10 2> /dev/null | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gau.txt 2>&1 > /dev/null
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+               echo "${target}" | waybackurls | egrep -v "^[[:blank:]]*$" | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_waybackurls.txt 2>&1 > /dev/null &
+                emoticons "waybackurls"
 
 # ╭─────────────────────╮
-# |         GAUPLUS     |
+# |     WAYMORE         |
 # ╰─────────────────────╯
-               echo ${target} | gauplus -random-agent -subs -retries 2 -t 100 -providers wayback,otx,commoncrawl | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_gauplus.txt 2>&1 > /dev/null
-
-# ╭─────────────────────╮
-# |     KATANA PASSIVE  |
-# ╰─────────────────────╯
-                echo "${target}" | katana -passive -jc -jsl -fx -xhr -kf all -c 50 -silent | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_katana_passive.txt 2>&1 > /dev/null
-
-###### katana_depth-first ACTIVE
-# ╭─────────────────────╮
-# | KATANA ACTIVE df    |
-# ╰─────────────────────╯
-               echo "${target}" | katana -d 5 -jc -ct 1h -aff -fx -s depth-first -c 50 -silent | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_katana_df.txt 2>&1 > /dev/null
-
-###### katana_breadth-first ACTIVE
-# ╭─────────────────────╮
-# | KATANA ACTIVE BF    |
-# ╰─────────────────────╯
-               echo "${target}" | katana -d 5 -jc -ct 1h -aff -fx -s breadth-first -c 50 -silent | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_katana_bf.txt 2>&1 > /dev/null
-
-# ╭─────────────────────╮
-# |     WAYBACKURLS     |
-# ╰─────────────────────╯
-               echo "${target}" | waybackurls | egrep -v "^[[:blank:]]*$" | anew -q ${BASE_DIR}/output/${target}_$(date -I)/${target}_waybackdata.txt 2>&1 > /dev/null
+                # APIs
+                trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+               echo "${target}" | waymore -i ${target} -mode U --retries 3 --timeout 10 --memory-threshold 95 --processes 5 --config ~/.config/waymore/config.yml --output-urls ${BASE_DIR}/output/${target}_$(date -I)/${target}_waymore.txt &> /dev/null &
+                emoticons "waymore"
        fi
 }
 
@@ -246,38 +289,48 @@ function generate_regex() {
     fi
 }
 found(){
-    if [[ -f ${target} ]] && [[ -e ${target} ]] && [[ -r ${target} ]];then
-        cat ${BASE_DIR}/.hold_regex.txt | while IFS= read -r rr || [[ -n ${rr} ]]; do
-          cat ${target}|while IFS= read -r tt1 || [[ -n ${tt1} ]];do 
-          if [ "$(find ${BASE_DIR}/output/${tt1}_$(date -I) -type f -name '*.txt' -print0 |awk -v RS='\0' 'END{print NR}')" -gt 0 ];then
-           echo ${tt1} | xargs -P500 -I@ bash -c "egrep -ai --no-filename \"${rr}\" ${BASE_DIR}/output/@_$(date -I)/@_*.txt | anew -q ${BASE_DIR}/output/@_$(date -I)/@_possible_leaked_data.txt"
-          else
-                printf "[${red}${cross}${end}] ${yellow}No data ! Bad luck on the target ${red}\"${tt1}\"${end}\n"
-          fi
-    done
-        done
-        cat ${target} | while IFS= read -r tt || [[ -n ${tt} ]];do
-            if [ -f ${BASE_DIR}/output/${tt}_$(date -I)/${tt}_possible_leaked_data.txt ] && [ -s ${BASE_DIR}/output/${tt}_$(date -I)/${tt}_possible_leaked_data.txt ];then printf "[${right}]${greenbg}${red}`wc -l ${BASE_DIR}/output/${tt}_$(date -I)/${tt}_possible_leaked_data.txt`${end} : possible leaked data for target [${tt}]${end}\n"
-            else
-                printf "[${red}${cross}${end}] ${yellow}No data ! Bad luck on the target ${red}\"${tt}\"${end}\n"
-            fi
-        done
-#/------------------------------------------------------------/
-    elif [ ! -z ${target} ];then
-        cat ${BASE_DIR}/.hold_regex.txt | while IFS= read -r rr || [[ -n ${rr} ]]; do
-        if [ "$(find ${BASE_DIR}/output/${target}_$(date -I) -type f -name '*.txt' -print0 |awk -v RS='\0' 'END{print NR}')" -gt 0 ];then
-                echo ${target} | xargs -P500 -I@ bash -c "egrep -ai --no-filename \"${rr}\" ${BASE_DIR}/output/@_$(date -I)/@_*.txt | anew -q ${BASE_DIR}/output/@_$(date -I)/@_possible_leaked_data.txt"
-            else
-                printf "[${red}${cross}${end}] ${yellow}No data ! Bad luck on the target ${red}\"${target}\"${end}\n"
-            fi
-        done
-            if [ -f ${BASE_DIR}/output/${target}_$(date -I)/${target}_possible_leaked_data.txt ] && [ -s ${BASE_DIR}/output/${target}_$(date -I)/${target}_possible_leaked_data.txt ];then printf "[${green}${right}${end}] ${yellow}`wc -l ${BASE_DIR}/output/${target}_$(date -I)/${target}_possible_leaked_data.txt`${end} : ${yellow}possible leaked data for target [${target}]${end}\n"
-            else
-                printf "[${red}${cross}${end}] ${yellow}No data ! Bad luck on the target ${red}\"${target}\"${end}\n"
-            fi
-    fi
+        if [ ! -z ${target} ] && [ ! -f ${target} ];then
+            cat ${BASE_DIR}/.hold_regex.txt | while IFS= read -r rr || [[ -n ${rr} ]]; do
+                if [ "$(find ${BASE_DIR}/output/${target}_$(date -I) -type f -name '*.txt' -print0 |awk -v RS='\0' 'END{print NR}')" -gt 0 ];then
+                    echo ${target} | xargs -P500 -I@ bash -c "egrep -ai --no-filename \"${rr}\" ${BASE_DIR}/output/@_$(date -I)/@_*.txt | anew -q ${BASE_DIR}/output/@_$(date -I)/@_possible_leaked_data.txt"
+                else
+                    printf "[${red}${cross}${end}] ${yellow}No data ! Bad luck on the target ${red}\"${target}\"${end}\n"
+                fi
+            done
+        fi
 }
-
+subs(){
+        if [ ! -z "${target}" ] && [ "$(find ${BASE_DIR}/output/${target}_$(date -I) -type f -name '*.txt' -print0 |awk -v RS='\0' 'END{print NR}')" -gt 0 ];then
+            trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+            find ${BASE_DIR}/output/${target}_$(date -I) -type f -iname '*.txt' -exec egrep --no-filename -ao "(http|https|ftp|gopher|ftps|file)?://([a-z0-9_-]+[.])*${target}" "{}" \; | cut -d"/" -f3- | anew -q "${BASE_DIR}/output/${target}_$(date -I)/${target}_uniq_subs.txt" &
+            emoticons "uniq_subs"
+        fi
+}
+ctrlc_count=0
+dotraps(){
+        let ctrlc_count++
+        echo
+        if [[ $ctrlc_count == 1 ]]; then
+            printf "${red}[Warn] No CTRL+C please...${end}\n"
+        elif [[ $ctrlc_count == 2 ]]; then
+            printf "${red}[Warn] Once more and I quit.${end}\n"
+        else
+            declare -a tools_n=("gospider" "crawley" "cariddi" "gau" "gauplus" "hakrawler" "katana" "waybackurls" "waymore")
+            printf "${red}[Warn] That's it. I quit.${end}\n"
+            printf "\r${red}[Warn] killing all ${tool} PID/PPIDs for you ;)${end} ── ${logo} ${tools_n[*]} ${end}\n"
+            for x in ${!tools_n[@]};do
+                    killall -q ${tools_n[$x]}
+            done
+            printf "\n╔════════[ ${lightred}\360\237\246\204 Thanks for using this tool ${end} ]════════════════════════════════════╗\n\n"
+            printf "${logo}\t - https://buymeacoffee.com/medheeraj${end}\n"
+            printf "${logo}\t - https://github.com/Dheerajmadhukar${end}\n"
+            printf "${logo}\t - https://twitter.com/Dheerajmadhukar${end}\n"
+            printf "${logo}\t - https://www.youtube.com/c/DheerajMadhukar${end}\n"
+            printf "${logo}\t - https://linkedin.com/in/dheerajtechnolegends${end}\n"
+            printf "╚═══════════════════════════════════════════════════════════════════════════════╝\n\n"
+            exit 10
+        fi
+}
 function run(){
 set +u
     case $1 in
@@ -291,15 +344,19 @@ set +u
             check_install
             shift
             ;;
-    '-t'|'--target')
+        '-d'|'--domain')
             target=$2
             shift
             if [[ ! -z "${target}" ]];then
                 generate_regex > "${BASE_DIR}/.hold_regex.txt"
                 ulimit -u 10000 &> /dev/null
-                collect
+                collect 2> /dev/null
                 find ${BASE_DIR}/output -type f -empty -delete
-                found | sort  -u
+                printf "${target} ${yellow}[LOOT(s)] ${end}\n"
+                    trap dotraps SIGINT SIGPIPE SIGTERM SIGHUP
+                found 2> /dev/null &
+                    emoticons "possible_leaked_data"
+                subs 2> /dev/null
             else
                 printf "\n[${red}${cross}${end}] ${yellow}No target/domain <domain.tld> OR target list given. Make sure you go through the usage/help${end}\n\n"
                 help
